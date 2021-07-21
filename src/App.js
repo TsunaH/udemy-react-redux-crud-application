@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 /*
 function App() {
   return (<div>Hello World!</div>);
@@ -32,16 +33,19 @@ const App = () => {
     return <input type="text" onClick={() => {console.log("text click")}}     />;
   }
 */
+  // 画面に表示する内容を配列で定義
   const testArr = [
-     {title: "name1", detail: "detail1"},
-     {title: "name2", detail: "detail2"},
+     {title: "name1", number: 1},
+     {title: "name2", number: 3},
      {title: "name3"}
   ]
 
 //  render(){ 
     return (
-         testArr.map((val) => {
-           return <Component_test props1={val.title} props2={val.detail}/>
+         // map()関数を用いて配列をLoop
+         testArr.map((val, index) => {
+           // 下で定義したComponent_test()を呼び出す。引数には配列の内容を指定
+           return <Component_test props1={val.title} props2={val.number} key={index}/>
          })
     )
 //  }
@@ -49,11 +53,18 @@ const App = () => {
 }
 
 const Component_test = (val) => {
+        // propsを受け取ってHTMLをreturn
 	return <div>{val.props1}, {val.props2}</div>
 }
 Component_test.defaultProps = {
-  props2: "default"
+  // propsがない場合の初期値を設定
+//  props2: 99999
+  props2: "99999"
 }
-
+Component_test.propTypes = {
+  // "props2"というpropsの型チェック
+//  props2: PropTypes.number.isRequired
+  props2: PropTypes.number
+}
 
 export default App;
