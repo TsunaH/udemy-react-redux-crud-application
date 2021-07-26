@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 /*
 function App() {
   return (<div>Hello World!</div>);
@@ -12,59 +12,39 @@ const testArr = [
 ]
 */
 //class App extends Component{
-const App = () => {
+const App = () => (<Counter></Counter>)
 
-/*
-  render() {
-   const change = "Hello Japan";
-   const dom = <h1 className="test">{change}</h1>;
-   return dom;
-  }
-*/
-/*
-   return React.createElement(
-	"h1",
-	null,
-	"Hello, World"
-   );
-*/
-/*
-  render() {
-    return <input type="text" onClick={() => {console.log("text click")}}     />;
-  }
-*/
-  // 画面に表示する内容を配列で定義
-  const testArr = [
-     {title: "name1", number: 1},
-     {title: "name2", number: 3},
-     {title: "name3"}
-  ]
-
-//  render(){ 
-    return (
-         // map()関数を用いて配列をLoop
-         testArr.map((val, index) => {
-           // 下で定義したComponent_test()を呼び出す。引数には配列の内容を指定
-           return <Component_test props1={val.title} props2={val.number} key={index}/>
-         })
-    )
-//  }
-
+class Counter extends Component {
+	// 初期化処理
+	constructor(props){
+		// 親クラスを呼び出す
+		super(props)
+		// ブラウザのコンソールへの出力
+		console.log(this.state)
+		// countというstate（変数）への値の代入
+		this.state = { count: 0}
+	}
+	// +1ボタン押下時の処理
+	handlePlusButton = () => {
+		// stateを変更するメソッド
+		// setState()を呼び出すと再renderされる
+		this.setState({count: this.state.count + 1})
+	}
+        // -1ボタン押下時の処理
+        handleMinusButton = () => {
+                // stateを変更するメソッド
+                // setState()を呼び出すと再renderされる
+                this.setState({count: this.state.count - 1})
+        }
+	render() {
+		// ↑で代入したcountを画面に表示する
+		return (
+			<React.Fragment>
+				<div>count: {this.state.count}</div>
+				<button onClick={this.handlePlusButton}>+1</button>
+				<button onClick={this.handleMinusButton}>-1</button>
+			</React.Fragment>
+		)
+	}
 }
-
-const Component_test = (val) => {
-        // propsを受け取ってHTMLをreturn
-	return <div>{val.props1}, {val.props2}</div>
-}
-Component_test.defaultProps = {
-  // propsがない場合の初期値を設定
-//  props2: 99999
-  props2: "99999"
-}
-Component_test.propTypes = {
-  // "props2"というpropsの型チェック
-//  props2: PropTypes.number.isRequired
-  props2: PropTypes.number
-}
-
 export default App;
