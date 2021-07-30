@@ -1,50 +1,29 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
-/*
-function App() {
-  return (<div>Hello World!</div>);
-}
-*/
-/*
-const testArr = [
-  {title: "name1", detail: "detail1"},
-  {title: "name2", detail: "detail2"},
-]
-*/
-//class App extends Component{
-const App = () => (<Counter></Counter>)
 
-class Counter extends Component {
-	// 初期化処理
-	constructor(props){
-		// 親クラスを呼び出す
-		super(props)
-		// ブラウザのコンソールへの出力
-		console.log(this.state)
-		// countというstate（変数）への値の代入
-		this.state = { count: 0}
-	}
-	// +1ボタン押下時の処理
-	handlePlusButton = () => {
-		// stateを変更するメソッド
-		// setState()を呼び出すと再renderされる
-		this.setState({count: this.state.count + 1})
-	}
-        // -1ボタン押下時の処理
-        handleMinusButton = () => {
-                // stateを変更するメソッド
-                // setState()を呼び出すと再renderされる
-                this.setState({count: this.state.count - 1})
-        }
+// redux
+import { connect } from 'react-redux';
+import { increment, decrement } from '../actions'
+
+class App extends Component {
 	render() {
-		// ↑で代入したcountを画面に表示する
+		const props = this.props
+console.log('this.props : ')
 		return (
 			<React.Fragment>
-				<div>count: {this.state.count}</div>
-				<button onClick={this.handlePlusButton}>+1</button>
-				<button onClick={this.handleMinusButton}>-1</button>
+				<div>value: {props.value}</div>
+				<button onClick={props.increment}>+1</button>
+				<button onClick={props.decrement}>-1</button>
 			</React.Fragment>
 		)
 	}
 }
-export default App;
+const mapStateToProps = state => ({ value: state.count.value })
+/*
+const mapDispatchToProps = dispatch => ({
+	increment: () => dispatch(increment()),
+	decrement: () => dispatch(decrement())
+})
+*/
+const mapDispatchToProps = ({ increment, decrement })
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
