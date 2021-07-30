@@ -11,13 +11,13 @@ import { Provider } from 'react-redux'
 // 作成したreducerをimport
 import reducer from './reducers'
 
-const store = createStore(reduce)
+const store = createStore(reducer)
 
 
 ReactDOM.render(
   <Provider store={store}>
    <App />
-  </Provider>
+  </Provider>,
   document.getElementById('root')
 );
 
